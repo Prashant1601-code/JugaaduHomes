@@ -1,0 +1,176 @@
+<header class="bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-xl">
+  <nav class="container mx-auto py-4 px-6">
+    <div class="flex justify-between items-center">
+      <!-- Logo Section -->
+      <a href="/" class="flex items-center space-x-2 group">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-8 w-8 transform group-hover:scale-110 transition-transform duration-300"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            d="M12.0002 1.25C12.9462 1.25 13.8507 1.63187 14.4883 2.26953C15.126 2.90719 15.5002 3.81174 15.5002 4.75774C15.5002 5.70374 15.126 6.60829 14.4883 7.24595C13.8507 7.88361 12.9462 8.26548 12.0002 8.26548C11.0542 8.26548 10.1497 7.88361 9.51203 7.24595C8.87437 6.60829 8.5002 5.70374 8.5002 4.75774C8.5002 3.81174 8.87437 2.90719 9.51203 2.26953C10.1497 1.63187 11.0542 1.25 12.0002 1.25Z"
+          />
+        </svg>
+        <span
+          class="text-2xl font-bold tracking-wider group-hover:text-red-100 transition duration-300"
+          >JugaadHomes</span
+        >
+      </a>
+
+      <!-- Navigation Links -->
+      <div class="flex items-center space-x-6">
+        <% if(isLoggedIn){ %> <% if(user && user.userType === "guest"){ %>
+        <a
+          href="/homes"
+          class="nav-link <%=currentPage === 'home' ? 'active-nav-link' : '' %>"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+            />
+          </svg>
+          Homes
+        </a>
+
+        <a
+          href="/favourites"
+          class="nav-link <%=currentPage === 'favourites' ? 'active-nav-link' : '' %>"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Favorites
+        </a>
+
+        <a
+          href="/bookings"
+          class="nav-link <%=currentPage === 'bookings' ? 'active-nav-link' : '' %>"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Bookings
+        </a>
+        <% } else { %>
+        <a
+          href="/host/host-home-list"
+          class="nav-link <%=currentPage === 'host-homes' ? 'active-nav-link' : '' %>"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
+            />
+          </svg>
+          Host Properties
+        </a>
+
+        <a
+          href="/host/add-home"
+          class="nav-link <%=currentPage === 'add-home' ? 'active-nav-link' : '' %>"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Add Property
+        </a>
+        <% } %>
+        <form action="/logout" method="POST" class="inline-block">
+          <button type="submit" class="nav-link text-red-100 hover:bg-red-700">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 inline-block mr-1"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Logout
+          </button>
+        </form>
+        <% } else { %>
+        <a href="/signup" class="nav-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
+            />
+          </svg>
+          Sign Up
+        </a>
+        <a href="/login" class="nav-link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block mr-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Login
+        </a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- 
+<style>
+  .nav-link {
+    @apply px-4 py-2 rounded-lg flex items-center text-white hover:bg-red-400 hover:bg-opacity-30 transition-all duration-300 text-sm font-medium;
+  }
+
+  .active-nav-link {
+    @apply bg-red-400 bg-opacity-70;
+  }
+</style> -->

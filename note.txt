@@ -1,0 +1,29 @@
+
+  save() {
+    Home.fetchAll((registeredHomes) => {
+      if (this.id) {
+        //this is edit home case
+        registeredHomes = registeredHomes.map((home) =>
+          home._id === this.id ? this : home
+        );
+      } else {
+        //add home case
+        this.id = Math.random().toString();
+        registeredHomes.push(this);
+      }
+      fs.writeFile(homeDataPath, JSON.stringify(registeredHomes), (error) =>
+        console.log("File Writing concluded", error)
+      );
+    });
+  }
+
+
+
+  exports.postEditHome = (req, res, next) => {
+  const { id, houseName, price, location, rating, image } = req.body;
+  const home = new Home(houseName, price, location, rating, image);
+  home._id = id;
+  home.save();
+
+  res.redirect("/host/host-home-list");
+};

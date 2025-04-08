@@ -1,0 +1,92 @@
+<%- include('../partials/head') %>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <%- include('../partials/nav') %>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+            <!-- Property Header -->
+            <div class="relative h-96">
+                <img 
+                    src="<%= home.image %>" 
+                    alt="<%= home.houseName %>" 
+                    class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8">
+                    <h1 class="text-4xl font-bold text-white mb-2"><%= home.houseName %></h1>
+                    <div class="flex items-center text-white/90">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        </svg>
+                        <%= home.location %>
+                    </div>
+                </div>
+                <!-- Rating Badge -->
+                <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                    <div class="flex items-center">
+                        <span class="text-yellow-400 mr-1">⭐</span>
+                        <span class="font-semibold"><%= home.rating %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Details -->
+            <div class="p-8">
+                <!-- Price Section -->
+                <div class="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
+                  <div class="flex items-center">
+                    <svg class="w-6 h-6 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m3-3c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <div>
+                        <p class="text-2xl font-bold text-gray-900">₹<%= home.price %></p>
+                        <p class="text-gray-500">per night</p>
+                    </div>
+                </div>
+                
+                    <%- include('../partials/Favourite') %>
+                </div>
+
+                <!-- Description Section -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">About this place</h2>
+                    <p class="text-gray-600 leading-relaxed"><%= home.description %></p>
+                </div>
+                <!-- rules -->
+                 <!-- <div class="mt-4">
+                    <a href="/rules/<%= home._id%>" class="inline-flex items-center text-blue-600 hover:text-blue-800">
+                        <svg class="w-5 h-5 mr-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 
+                            8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download House Rules
+                    </a>
+                 </div> -->
+
+                <!-- Amenities Section -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">What this place offers</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+                            </svg>
+                            Wifi
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                            TV
+                        </div>
+                        <!-- Add more amenities as needed -->
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </main>
+</body>
+</html>

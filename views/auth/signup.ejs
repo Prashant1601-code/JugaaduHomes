@@ -1,0 +1,169 @@
+<%- include('../partials/head') %>
+</head>
+
+<body class="min-h-screen bg-gray-50">
+    <%- include('../partials/nav') %>
+
+    <main class="container max-w-md mx-auto mt-12 p-8 bg-white rounded-xl shadow-lg border border-gray-200">
+        <h1 class="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-600">
+            Create Your Account
+        </h1>
+
+        <form action="/signup" method="POST" class="flex flex-col space-y-4">
+
+       
+    <%- include('../partials/errors') %>
+            <!-- First Name -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15.999c2.637 0 5.072.726 7.121 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </span>
+                <input 
+                    type="text" 
+                    name="firstName" 
+                    value="<%= oldInput.firstName ? oldInput.firstName : '' %>"
+                    placeholder="First Name"
+                    class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+                    required 
+                />
+            </div>
+
+            <!-- Last Name -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15.999c2.637 0 5.072.726 7.121 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </span>
+                <input 
+                    type="text" 
+                    name="lastName" 
+                    value="<%= oldInput.lastName ? oldInput.lastName : '' %>"
+                    placeholder="Last Name"
+                    class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+                />
+            </div>
+
+            <!-- Email -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2.94 6.34a2 2 0 011.53-.76h10.06a2 2 0 011.53.76l-6.06 3.79L2.94 6.34zM2 7.37v5.26a2 2 0 002 2h12a2 2 0 002-2V7.37l-7.06 4.42a1 1 0 01-1.06 0L2 7.37z" />
+                    </svg>
+                </span>
+                <input 
+                    type="email" 
+                    name="email" 
+                    value="<%= oldInput.email ? oldInput.email : '' %>"
+                    placeholder="test@pop.com"
+                    class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+                    required 
+                />
+            </div>
+
+            <!-- Password -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 1110 0v2a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2zm2-2a3 3 0 116 0v2H7V7z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <input 
+                    type="password" 
+                    name="password" 
+                    placeholder="Enter your password"
+                    class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+                    required 
+                />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 1110 0v2a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2zm2-2a3 3 0 116 0v2H7V7z" clip-rule="evenodd" />
+                    </svg>
+                </span>
+                <input 
+                    type="password" 
+                    name="confirmPassword" 
+                    placeholder="Confirm your password"
+                    class="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300"
+                    required 
+                />
+            </div>
+
+            <!-- User Type with enhanced styling -->
+            <div class="mb-4">
+                <p class="font-medium mb-2 text-gray-700">I want to register as</p>
+                <div class="flex space-x-4">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input 
+                            type="radio" 
+                            name="userType" 
+                            id="guest" 
+                            value="guest" 
+                            checked="<% oldInput.userType === "guest" %>"
+                        />
+                        <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-500 
+                        peer-checked:bg-red-500 peer-checked:text-white peer-checked:border-transparent 
+                        hover:bg-red-50 transition duration-300">
+                            Guest
+                        </span>
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input 
+                            type="radio" 
+                            name="userType" 
+                            id="host" 
+                            value="host"
+                            checked="<% oldInput.userType === "host" %>" 
+                            
+                        />
+                        <span class="px-4 py-2 rounded-lg border border-gray-300 text-gray-500 
+                        peer-checked:bg-red-500 peer-checked:text-white peer-checked:border-transparent 
+                        hover:bg-red-50 transition duration-300">
+                            Host
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Terms and Conditions with enhanced styling -->
+            <div class="flex items-center space-x-2 mb-6">
+                <input 
+                    type="checkbox" 
+                    name="terms" 
+                    id="terms" 
+                    class="form-checkbox h-5 w-5 text-red-500 rounded focus:ring-red-500" 
+                    required 
+                />
+                <label for="terms" class="text-sm text-gray-600 select-none hover:text-gray-800 transition duration-300">
+                    I agree to the terms and conditions
+                </label>
+            </div>
+
+            <!-- Submit Button with enhanced styling -->
+            <button 
+                type="submit" 
+                class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white py-3 rounded-lg 
+                       hover:from-red-600 hover:to-pink-700 transition duration-300 
+                       transform active:scale-95 shadow-md"
+            >
+                Register
+            </button>
+
+            <!-- Login Link with enhanced styling -->
+            <div class="text-center mt-6">
+                <span class="text-gray-600">Already have an account? 
+                    <a href="/login" class="text-red-500 hover:text-red-600 font-medium transition duration-300">
+                        Log in
+                    </a>
+                </span>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
