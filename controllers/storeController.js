@@ -8,7 +8,7 @@ exports.getIndex = (req, res, next) => {
   Home.find().then((registeredHomes) => {
     res.render("store/index", {
       registeredHomes: registeredHomes,
-      pageTitle: "JugaadHomes Home",
+      pageTitle: "JugaaduHomes Home",
       currentPage: "index",
       isLoggedIn: req.isLoggedIn,
       user: req.session.user,
@@ -30,20 +30,20 @@ exports.getHome = (req, res, next) => {
 
 exports.getBookings = async (req, res, next) => {
   try {
-    const bookings = await Booking.find({ userId: req.session.user._id })
-      .populate("homeId")
-      .sort({ createdAt: -1 });
+    const bookings = await Booking.find({
+      userId: req.session.user._id,
+    }).populate("homeId");
 
     res.render("store/bookings", {
-      pageTitle: "My bookings",
-      currentPage: "bookings",
-      isLoggedIn: req.isLoggedIn,
-      user: req.session.user,
       bookings: bookings,
+      pageTitle: "My Bookings",
+      currentPage: "Bookings",
+      user: req.session.user,
+      isLoggedIn: req.session.isLoggedIn,
     });
   } catch (error) {
-    console.log(error);
-    res.redirect("/");
+    console.error(error);
+    next(error);
   }
 };
 
@@ -158,6 +158,52 @@ exports.postCreateBooking = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.redirect("/homes");
+  }
+};
+
+exports.cancelBooking = async (req, res) => {
+  try {
+    const bookingId = req.params.bookingId;
+
+    // Find the booking
+    const booking = await Booking.findById(bookingId);
+
+    if (!booking) {
+      return res.status(404).json({
+        success: false,
+        message: "Booking not found",
+      });
+    }
+
+    // Verify ownership
+    if (booking.userId.toString() !== req.session.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to cancel this booking",
+      });
+    }
+
+    // Check if booking is in the future
+    if (new Date(booking.checkIn) <= new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot cancel past or current bookings",
+      });
+    }
+
+    // Delete the booking instead of updating status
+    await Booking.findByIdAndDelete(bookingId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Booking cancelled successfully",
+    });
+  } catch (error) {
+    console.error("Cancel booking error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while cancelling the booking",
+    });
   }
 };
 // exports.getHouseRules = [

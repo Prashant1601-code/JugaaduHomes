@@ -7,17 +7,66 @@
         <!-- Hero Section -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-600">
-                Welcome to JugaadHomes
+                Welcome to JugaaduHomes
             </h1>
             <p class="text-gray-600 text-lg mb-8">Discover unique stays around the world</p>
             
             
         </div>
 
+        <!-- Filter Form -->
+        <div class="max-w-7xl mx-auto mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <form id="filterForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Search Input -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Search by location or house name"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500"
+                        >
+                    </div>
+
+                    <!-- Price Range -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <input 
+                                type="number" 
+                                id="minPrice"
+                                placeholder="Min Price"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500"
+                            >
+                            <input 
+                                type="number" 
+                                id="maxPrice"
+                                placeholder="Max Price"
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Filter Button -->
+                    <div class="flex items-end">
+                        <button 
+                            type="button"
+                            onclick="applyFilters()"
+                            class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white py-2 rounded-lg 
+                                   hover:from-red-600 hover:to-pink-700 transition-colors duration-300"
+                        >
+                            Apply Filters
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Properties Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <% registeredHomes.forEach(home => { %>
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200">
+                <div class="property-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200">
                     <!-- Property Image -->
                     <div class="relative h-64">
                         <img 
@@ -38,10 +87,10 @@
 
                     <!-- Property Details -->
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4"><%= home.houseName %></h3>
+                        <h3 class="house-name text-xl font-bold text-gray-900 mb-4"><%= home.houseName %></h3>
                         
                         <!-- Location -->
-                        <div class="flex items-center text-gray-600 mb-3">
+                        <div class="location flex items-center text-gray-600 mb-3">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                             </svg>
@@ -50,7 +99,7 @@
 
                         <!-- Price -->
                         <div class="flex items-center justify-between mb-6">
-                            <div class="flex items-center text-gray-600">
+                            <div class="price flex items-center text-gray-600" data-price="<%= home.price %>">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m3-3c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -60,12 +109,21 @@
 
                         <!-- Action Buttons -->
                         <div class="flex items-center justify-between">
-                            <a href="/bookings/<%= home._id %>" 
-                               class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white py-2 rounded-lg font-medium
-                                      hover:from-red-600 hover:to-pink-700 transition-all duration-300 
-                                      transform hover:scale-[1.02] active:scale-95 text-center">
-                                Book Now
-                            </a>
+                            <% if (locals.isLoggedIn && locals.user && locals.user.userType !== 'host') { %>
+                                <a href="/bookings/<%= home._id %>" 
+                                    class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white py-2 rounded-lg font-medium
+                                            hover:from-red-600 hover:to-pink-700 transition-all duration-300 
+                                            transform hover:scale-[1.02] active:scale-95 text-center">
+                                    Book Now
+                                </a>
+                            <% } else if (!locals.isLoggedIn) { %>
+                                <a href="/login" 
+                                    class="w-full bg-gradient-to-r from-gray-500 to-gray-600 text-white py-2 rounded-lg font-medium
+                                            hover:from-gray-600 hover:to-gray-700 transition-all duration-300 
+                                            transform hover:scale-[1.02] active:scale-95 text-center">
+                                    Login to Book
+                                </a>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -83,5 +141,66 @@
             </div>
         <% } %>
     </main>
+    <script>
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const minPrice = parseFloat(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('maxPrice').value) || Infinity;
+
+            const propertyCards = document.querySelectorAll('.property-card');
+            let visibleCount = 0;
+
+            propertyCards.forEach(card => {
+                const houseName = card.querySelector('.house-name').textContent.toLowerCase();
+                const location = card.querySelector('.location').textContent.toLowerCase();
+                const price = parseFloat(card.querySelector('.price').dataset.price);
+
+                const matchesSearch = houseName.includes(searchTerm) || 
+                                    location.includes(searchTerm) || 
+                                    searchTerm === '';
+                const matchesPrice = price >= minPrice && 
+                                    (maxPrice === Infinity || price <= maxPrice);
+
+                if (matchesSearch && matchesPrice) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            if (visibleCount === 0) {
+                if (!noResultsMessage) {
+                    const message = document.createElement('div');
+                    message.id = 'noResultsMessage';
+                    message.className = 'text-center py-8 col-span-full';
+                    message.innerHTML = `
+                        <p class="text-gray-500 text-lg">No properties match your filters</p>
+                        <button onclick="resetFilters()" 
+                                class="mt-4 text-red-500 hover:text-red-600">
+                            Reset Filters
+                        </button>
+                    `;
+                    document.querySelector('.grid').appendChild(message);
+                }
+            } else if (noResultsMessage) {
+                noResultsMessage.remove();
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('filterForm').reset();
+            applyFilters();
+        }
+
+        // Add debouncing to search input
+        let searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(applyFilters, 300);
+        });
+    </script>
 </body>
 </html>

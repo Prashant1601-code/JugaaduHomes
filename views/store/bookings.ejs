@@ -72,7 +72,7 @@
       <h2 class="text-3xl font-bold text-center mb-8">My Bookings</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% bookings.forEach(booking => { %>
-          <div class="bg-white rounded-xl shadow-lg p-6">
+          <div class="bg-white rounded-xl shadow-lg p-6" id="booking-card-<%= booking._id %>">
             <img src="<%= booking.homeId.image %>" 
                  alt="<%= booking.homeId.houseName %>" 
                  class="w-full h-48 object-cover rounded-lg mb-4">
@@ -86,9 +86,67 @@
             <p class="text-lg font-semibold text-red-500">
               Total Price: ₹<%= booking.totalPrice %>
             </p>
+            
+            <button 
+              onclick="cancelBooking('<%= booking._id %>')"
+              class="w-full mt-4 bg-red-100 text-red-600 py-2 rounded-lg 
+                     hover:bg-red-200 transition-colors duration-300"
+              id="cancel-btn-<%= booking._id %>">
+              Cancel Booking
+            </button>
           </div>
         <% }) %>
       </div>
+
+      <script>
+        async function cancelBooking(bookingId) {
+          try {
+            if (!confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
+              return;
+            }
+
+            const button = document.getElementById(`cancel-btn-${bookingId}`);
+            button.disabled = true;
+            button.textContent = 'Cancelling...';
+
+            const response = await fetch(`/bookings/${bookingId}/cancel`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              // Remove the booking card from UI
+              const bookingCard = document.getElementById(`booking-card-${bookingId}`);
+              bookingCard.remove();
+
+              // Show success message
+              alert('Booking cancelled and deleted successfully');
+              
+              // If no more bookings, show empty state
+              const bookingsContainer = document.querySelector('.grid');
+              if (!bookingsContainer.children.length) {
+                bookingsContainer.innerHTML = `
+                  <div class="col-span-full text-center py-8">
+                    <p class="text-gray-500">No bookings found</p>
+                  </div>
+                `;
+              }
+            } else {
+              throw new Error(data.message || 'Failed to cancel booking');
+            }
+          } catch (error) {
+            alert(error.message);
+            // Reset button state
+            const button = document.getElementById(`cancel-btn-${bookingId}`);
+            button.disabled = false;
+            button.textContent = 'Cancel Booking';
+          }
+        }
+      </script>
     <% } %>
   </main>
 </body>

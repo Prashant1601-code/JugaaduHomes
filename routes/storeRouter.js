@@ -22,5 +22,6 @@ storeRouter.post(
 // Add these new routes
 storeRouter.get("/bookings/:homeId", homeController.getBookingPage);
 storeRouter.post("/bookings/create", homeController.postCreateBooking);
+storeRouter.post("/bookings/:bookingId/cancel", homeController.cancelBooking);
 
 module.exports = storeRouter;

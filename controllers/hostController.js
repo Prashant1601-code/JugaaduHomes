@@ -2,7 +2,7 @@ const Home = require("../models/home");
 const fs = require("fs");
 exports.getAddHome = (req, res, next) => {
   res.render("host/edit-home", {
-    pageTitle: "Add Home To JugaadHomes",
+    pageTitle: "Add Home To JugaaduHomes",
     currentPage: "add-home",
     editing: false,
     isLoggedIn: req.isLoggedIn,
