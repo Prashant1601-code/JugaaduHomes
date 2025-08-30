@@ -4,7 +4,7 @@ const session = require("express-session");
 const mongoDbStore = require("connect-mongodb-session")(session);
 const multer = require("multer");
 const DB_Path =
-  "mongodb+srv://root:root@completecoding.s1cov.mongodb.net/JugaadHomes?retryWrites=true&w=majority&appName=CompleteCoding";
+  "mongodb+srv://prashantverma1601_db_user:zSGNe8wWnkakrJ9N@cluster0.tk0hnss.mongodb.net/JugaaduHomes?retryWrites=true&w=majority&appName=Cluster0";
 
 const path = require("path");
 const rootDir = require("./utils/pathUtil");
